@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photobooth Strip Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📸 Photobooth Strip Generator</h1>
+            <p>Take 4 photos and create your own photobooth strip!</p>
+        </header>
+
+        <main>
+            <!-- Camera Section -->
+            <section class="camera-section">
+                <div class="camera-container">
+                    <video id="video" autoplay playsinline></video>
+                    <canvas id="overlay" class="overlay-canvas"></canvas>
+                    <div id="countdown" class="countdown hidden"></div>
+                    <div id="flash" class="flash"></div>
+                </div>
+
+                <div class="controls">
+                    <button id="startCamera" class="btn btn-secondary">
+                        <span class="icon">📷</span> Start Camera
+                    </button>
+                    <button id="captureBtn" class="btn btn-primary" disabled>
+                        <span class="icon">📸</span> Take Photo (<span id="photoCount">0</span>/4)
+                    </button>
+                    <button id="autoCapture" class="btn btn-accent" disabled>
+                        <span class="icon">⏱️</span> Auto Capture (3s)
+                    </button>
+                    <label id="uploadBtn" class="btn btn-secondary">
+                        <span class="icon">📁</span> Upload Photos
+                        <input type="file" id="fileInput" accept="image/*" multiple hidden>
+                    </label>
+                    <button id="resetBtn" class="btn btn-danger" disabled>
+                        <span class="icon">🔄</span> Reset
+                    </button>
+                </div>
+
+                <!-- Filter Options -->
+                <div class="filters">
+                    <h3>Filters</h3>
+                    <div class="filter-options">
+                        <button class="filter-btn active" data-filter="none">Normal</button>
+                        <button class="filter-btn" data-filter="grayscale(100%)">B&W</button>
+                        <button class="filter-btn" data-filter="sepia(100%)">Sepia</button>
+                        <button class="filter-btn" data-filter="contrast(150%)">High Contrast</button>
+                        <button class="filter-btn" data-filter="brightness(120%) saturate(130%)">Vivid</button>
+                        <button class="filter-btn" data-filter="hue-rotate(90deg)">Cool</button>
+                        <button class="filter-btn" data-filter="hue-rotate(270deg)">Warm</button>
+                        <button class="filter-btn" data-filter="blur(1px) brightness(110%)">Dreamy</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Preview Section -->
+            <section class="preview-section">
+                <h2>Your Photos</h2>
+                <div class="photo-grid">
+                    <div class="photo-slot" data-slot="0">
+                        <span class="placeholder">1</span>
+                    </div>
+                    <div class="photo-slot" data-slot="1">
+                        <span class="placeholder">2</span>
+                    </div>
+                    <div class="photo-slot" data-slot="2">
+                        <span class="placeholder">3</span>
+                    </div>
+                    <div class="photo-slot" data-slot="3">
+                        <span class="placeholder">4</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Strip Preview Section -->
+            <section class="strip-section hidden" id="stripSection">
+                <h2>Your Photobooth Strip</h2>
+                <div class="strip-options">
+                    <label>Strip Color:</label>
+                    <input type="color" id="stripColor" value="#ffffff">
+                    <label>
+                        <input type="checkbox" id="addDate" checked> Add Date
+                    </label>
+                    <label>
+                        <input type="checkbox" id="addBorder" checked> Add Border
+                    </label>
+                </div>
+                <div class="strip-container">
+                    <canvas id="stripCanvas"></canvas>
+                </div>
+                <div class="strip-actions">
+                    <button id="generateStrip" class="btn btn-primary">
+                        <span class="icon">🎨</span> Generate Strip
+                    </button>
+                    <button id="downloadStrip" class="btn btn-success" disabled>
+                        <span class="icon">💾</span> Download Strip
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Made with ❤️ | Photobooth Strip Generator</p>
+        </footer>
+    </div>
+
+    <!-- Hidden canvas for photo capture -->
+    <canvas id="captureCanvas" class="hidden"></canvas>
+
+    <script src="app.js"></script>
+</body>
+</html>
