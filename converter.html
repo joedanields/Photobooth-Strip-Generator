@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video to MP3 Converter</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="converter.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <a href="index.html" class="nav-link">📸 Photobooth</a>
+            <a href="converter.html" class="nav-link active">🎵 Video to MP3</a>
+        </nav>
+
+        <header>
+            <h1>🎵 Video to MP3 Converter</h1>
+            <p>Extract audio from your videos instantly - 100% client-side!</p>
+        </header>
+
+        <main>
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">🎬</div>
+                    <h3>Drag & Drop your video here</h3>
+                    <p>or click to browse</p>
+                    <input type="file" id="videoInput" accept="video/*" hidden>
+                    <p class="supported-formats">Supports: MP4, WebM, MOV, AVI, MKV</p>
+                </div>
+            </section>
+
+            <!-- Video Preview Section -->
+            <section class="preview-section hidden" id="previewSection">
+                <h2>Video Preview</h2>
+                <div class="video-container">
+                    <video id="videoPreview" controls></video>
+                </div>
+                <div class="file-info" id="fileInfo">
+                    <span class="info-item"><strong>File:</strong> <span id="fileName">-</span></span>
+                    <span class="info-item"><strong>Size:</strong> <span id="fileSize">-</span></span>
+                    <span class="info-item"><strong>Duration:</strong> <span id="fileDuration">-</span></span>
+                </div>
+            </section>
+
+            <!-- Conversion Options -->
+            <section class="options-section hidden" id="optionsSection">
+                <h2>Conversion Options</h2>
+                <div class="options-grid">
+                    <div class="option-group">
+                        <label for="quality">Audio Quality</label>
+                        <select id="quality">
+                            <option value="128">128 kbps (Standard)</option>
+                            <option value="192" selected>192 kbps (High)</option>
+                            <option value="256">256 kbps (Very High)</option>
+                            <option value="320">320 kbps (Best)</option>
+                        </select>
+                    </div>
+                    <div class="option-group">
+                        <label for="outputName">Output Filename</label>
+                        <input type="text" id="outputName" placeholder="audio-output">
+                    </div>
+                    <div class="option-group trim-group">
+                        <label>Trim Audio (Optional)</label>
+                        <div class="trim-inputs">
+                            <input type="text" id="trimStart" placeholder="Start (0:00)">
+                            <span>to</span>
+                            <input type="text" id="trimEnd" placeholder="End (auto)">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Progress Section -->
+            <section class="progress-section hidden" id="progressSection">
+                <h2>Converting...</h2>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0%</span>
+                </div>
+                <p class="progress-status" id="progressStatus">Initializing...</p>
+            </section>
+
+            <!-- Result Section -->
+            <section class="result-section hidden" id="resultSection">
+                <h2>✅ Conversion Complete!</h2>
+                <div class="audio-preview">
+                    <audio id="audioPreview" controls></audio>
+                </div>
+                <div class="result-actions">
+                    <button id="downloadBtn" class="btn btn-success">
+                        <span class="icon">💾</span> Download MP3
+                    </button>
+                    <button id="convertAnother" class="btn btn-secondary">
+                        <span class="icon">🔄</span> Convert Another
+                    </button>
+                </div>
+            </section>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons hidden" id="actionButtons">
+                <button id="convertBtn" class="btn btn-primary btn-large">
+                    <span class="icon">🎵</span> Convert to MP3
+                </button>
+                <button id="clearBtn" class="btn btn-danger">
+                    <span class="icon">✖</span> Clear
+                </button>
+            </div>
+        </main>
+
+        <footer>
+            <p>Made with ❤️ | Video to MP3 Converter</p>
+            <p class="note">⚠️ All processing happens in your browser. No files are uploaded to any server.</p>
+        </footer>
+    </div>
+
+    <!-- FFmpeg.wasm will be loaded dynamically -->
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.7/dist/umd/ffmpeg.js"></script>
+    <script src="https://unpkg.com/@ffmpeg/util@0.12.1/dist/umd/index.js"></script>
+    <script src="converter.js"></script>
+</body>
+</html>
